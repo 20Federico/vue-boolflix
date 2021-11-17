@@ -4,16 +4,20 @@
     <input @keyup.enter="searchContent"  id="search" type="text" v-model="keyWord">
     <button @click="searchContent" type="buttom">cerca</button>
 
-    <ul>
-      <li v-for="movie in movies" :key="movie.id">
-        {{movie.title}}
+    <ul v-for="(category, i) in categories" :key="i">
+    <h3 v-if="category.length > 0">{{i.toUpperCase()}}</h3>
+      <li v-for="element in category" :key="element.id">
+        <span v-if="i === 'movies'">{{element.title}}</span>
+        <span v-if="i === 'series'">{{element.name}}</span>
         <ul>
-          <li>{{movie.original_title}}</li>
-          <li>{{movie.original_language}}</li>
-          <li>{{movie.vote_average}}</li>
+          <li v-if="i === 'movies'">{{element.original_title}}</li>
+          <li v-if="i === 'series'">{{element.original_name}}</li>
+          <li><img style="width: 20px" :src="languageFlag(element.original_language)" :alt="element.original_language"></li>
+          <li>{{element.vote_average}}</li>
         </ul>
       </li>
     </ul>
+    
   </div>
 </template>
 
@@ -26,9 +30,12 @@ export default {
     return {
       apiKey: "74546dbedf2125e52d6aff0b896163c3",
       apiUrl: "https://api.themoviedb.org/3",
-      movies: [],
-      series: [],
-      keyWord: ""
+      categories: {
+        movies: [],
+        series: []
+      },
+      keyWord: "",
+      langFlagSrc: ""
     }
   },
   methods: {
@@ -41,16 +48,37 @@ export default {
       }
     }).then(resp => {
       if ( categoryToSearch === 'movie') {
-        this.movies = resp.data.results
+        this.categories.movies = resp.data.results
       } else if (categoryToSearch === 'tv') {
-        this.series = resp.data.results
+        this.categories.series = resp.data.results
       }
-
     });
     },
     searchContent() {
       this.apiCall('movie')
+      this.apiCall('tv')
       this.keyWord = ""
+    },
+    languageFlag(lang) {
+      switch (lang) {
+        case "en":
+        return "https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Flag_of_the_United_Kingdom.svg/1200px-Flag_of_the_United_Kingdom.svg.png"
+        
+        case "it":
+        return "https://upload.wikimedia.org/wikipedia/en/thumb/0/03/Flag_of_Italy.svg/255px-Flag_of_Italy.svg.png"
+        
+        case "fr":
+        return "https://upload.wikimedia.org/wikipedia/commons/6/62/Flag_of_France.png"
+        
+        case "es":
+        return "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Flag_of_Spain.svg/2560px-Flag_of_Spain.svg.png"
+        
+        case "de":
+        return "https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Flag_of_Germany.svg/2560px-Flag_of_Germany.svg.png"
+
+        default: 
+        return "https://upload.wikimedia.org/wikipedia/commons/2/2f/Missing_flag.png"
+      }
     }
   }
 }

@@ -14,7 +14,9 @@
             <ul>
               <li>{{i === 'movies' ? element.original_title : element.original_name}}</li>
               <li><img class="langImg" :src="languageFlag(element.original_language)" :alt="element.original_language"></li>
-              <li>{{element.vote_average}}</li>
+              <li>
+                <i v-for="n in 5" :key="n" :class="n < voteToStars(element.vote_average) ? 'fas fa-star' : 'far fa-star' "></i>
+              </li>
             </ul>
           </div>
         </div>
@@ -26,6 +28,7 @@
 
 <script>
 import axios from "axios";
+import "@fortawesome/fontawesome-free/js/all.js";
 
 export default {
   name: 'App',
@@ -38,7 +41,7 @@ export default {
         series: []
       },
       keyWord: "",
-      langFlagSrc: ""
+      langFlagSrc: "",
     }
   },
   methods: {
@@ -83,6 +86,10 @@ export default {
       } else {
         return 'https://vglist.co/assets/no-cover-60a919fca497ced5f84133c0ce073e17475c47f4a4cb122f2150299dc549d223.png'
       }
+    },
+    // takes decimal from 0 to 10 and and converts it to int from 0 to 5
+    voteToStars(vote) {
+      return Math.round(vote / 2);
     }
   }
 }

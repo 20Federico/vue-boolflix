@@ -63,7 +63,6 @@ export default {
     searchContent() {
       this.apiCall('movie')
       this.apiCall('tv')
-      // this.keyWord = ""
     },
     languageFlag(lang) {
       if (lang === "en") {
@@ -87,7 +86,6 @@ export default {
         return 'https://vglist.co/assets/no-cover-60a919fca497ced5f84133c0ce073e17475c47f4a4cb122f2150299dc549d223.png'
       }
     },
-    // takes decimal from 0 to 10 and and converts it to int from 0 to 5
     voteToStars(vote) {
       return Math.round(vote / 2);
     }

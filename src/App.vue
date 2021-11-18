@@ -57,28 +57,36 @@ export default {
     searchContent() {
       this.apiCall('movie')
       this.apiCall('tv')
-      this.keyWord = ""
+      // this.keyWord = ""
     },
     languageFlag(lang) {
       switch (lang) {
         case "en":
-        return "https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Flag_of_the_United_Kingdom.svg/1200px-Flag_of_the_United_Kingdom.svg.png"
-        
-        case "it":
-        return "https://upload.wikimedia.org/wikipedia/en/thumb/0/03/Flag_of_Italy.svg/255px-Flag_of_Italy.svg.png"
-        
-        case "fr":
-        return "https://upload.wikimedia.org/wikipedia/commons/6/62/Flag_of_France.png"
-        
-        case "es":
-        return "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Flag_of_Spain.svg/2560px-Flag_of_Spain.svg.png"
-        
-        case "de":
-        return "https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Flag_of_Germany.svg/2560px-Flag_of_Germany.svg.png"
+        this.langFlagSrc = "https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Flag_of_the_United_Kingdom.svg/1200px-Flag_of_the_United_Kingdom.svg.png"
+        break;
 
+        case "it":
+        this.langFlagSrc = "https://upload.wikimedia.org/wikipedia/en/thumb/0/03/Flag_of_Italy.svg/255px-Flag_of_Italy.svg.png"
+        break;
+
+        case "fr":
+        this.langFlagSrc = "https://upload.wikimedia.org/wikipedia/commons/6/62/Flag_of_France.png"
+        break;
+
+        case "es":
+        this.langFlagSrc = "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Flag_of_Spain.svg/2560px-Flag_of_Spain.svg.png"
+        break;
+
+        case "de":
+        this.langFlagSrc = "https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Flag_of_Germany.svg/2560px-Flag_of_Germany.svg.png"
+        break;
+        
         default: 
-        return "https://upload.wikimedia.org/wikipedia/commons/2/2f/Missing_flag.png"
+        this.langFlagSrc = "https://upload.wikimedia.org/wikipedia/commons/2/2f/Missing_flag.png"
+        break;
+        
       }
+      return this.langFlagSrc
     }
   }
 }

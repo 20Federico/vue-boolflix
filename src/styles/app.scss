@@ -1,6 +1,10 @@
 @import 'bootstrap';
 @import 'styles/variables';
 
+body {
+  background-color: rgb(179, 179, 179);
+}
+
 .my_card {
   width: calc(100% / 4);
   max-width:342px;

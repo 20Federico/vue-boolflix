@@ -1,8 +1,6 @@
 <template>
   <main>
-    
     <CardsContainer :keyWord="keyWord"></CardsContainer>
-
   </main>
 </template>
 

@@ -44,6 +44,9 @@ export default {
   },
   methods: {
     apiCall(categoryToSearch, query) {
+      if (this.keyWord === "") {
+        return
+      }
       this.noResults = false
       this.loading = true
 

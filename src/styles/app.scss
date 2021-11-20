@@ -51,9 +51,9 @@ body {
       width: 100%;
       height: 100%;
       transform: rotateY(180deg);
+      overflow: hidden;
 
       .card_info {
-        
         height: 100%;
 
         ul {
@@ -68,7 +68,7 @@ body {
           width: 50px
         }
 
-        p {
+        .content_overview {
           overflow: hidden;
           text-overflow: ellipsis;
           -webkit-line-clamp: 2;
@@ -86,3 +86,53 @@ body {
   }
 
 }
+
+@media (min-width: 1400px) {
+  .my_card {
+    width: calc(100% / 5);
+  }
+}
+
+@media (max-width: 992px) {
+  .my_card {
+    width: calc(100% / 3);
+  }
+}
+
+@media (max-width: 767px) {
+  .content_overview {
+    visibility: hidden;
+  }
+}
+
+@media (max-width: 576px) {
+  .my_card {
+    width: 50%;
+  }
+  .content_overview {
+    visibility: hidden;
+  }
+  h4 {
+    font-size: 18px;
+  }
+  header {
+    position: relative;
+  }
+  header label {
+    font-size: 25px
+  }
+  header form {
+    position: absolute;
+    top: -100%;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: 1s;
+  }
+  header form.form_active {
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+

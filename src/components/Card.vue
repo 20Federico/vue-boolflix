@@ -10,19 +10,18 @@
           <h4 class="mb-3">
             {{ title }}
           </h4> 
-          <ul class="p-0">
-            <li v-if="originalTitle !== title">
+          <ul class="p-0 mb-0">
+            <li v-if="originalTitle !== title" class="d-none d-md-block">
               {{ originalTitle }}
             </li>
             <li>
               <img class="langImg" :src="languageFlag" :alt="element.original_language">
             </li>
-            <li>
+            <li class="d-none d-md-block">
               <i v-for="n in 5" :key="n" :class="n <= voteToStars ? 'fas fa-star' : 'far fa-star' "></i>
             </li>
           </ul>
-          <h5 v-if="element.overview">Trama</h5>
-          <p> {{ element.overview }} </p>
+          <p class="content_overview"> {{ element.overview }} </p>
         </div>
       </div>
     </div>

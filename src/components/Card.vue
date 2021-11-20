@@ -1,20 +1,30 @@
 <template>
 
   <div class="my_card">
-    <img class="card_cover" :src="cardCover" :alt="i === 'movies' ? element.title : element.name">
-    <div class="card_info">
-      {{ i === 'movies' ? element.title : element.name}}
-      <ul>
-        <li>
-          {{i === 'movies' ? element.original_title : element.original_name}}
-        </li>
-        <li>
-          <img class="langImg" :src="languageFlag" :alt="element.original_language">
-        </li>
-        <li>
-          <i v-for="n in 5" :key="n" :class="n <= voteToStars ? 'fas fa-star' : 'far fa-star' "></i>
-        </li>
-      </ul>
+    <div class="card_inner">
+      <div class="card_front">
+        <img class="card_cover" :src="cardCover" :alt="i === 'movies' ? element.title : element.name">
+      </div>
+      <div class="card_back p-4 text-white text-center">
+        <div class="card_info d-flex flex-column justify-content-center">
+          <h4 class="mb-3">
+            {{ title }}
+          </h4> 
+          <ul class="p-0">
+            <li v-if="originalTitle !== title">
+              {{ originalTitle }}
+            </li>
+            <li>
+              <img class="langImg" :src="languageFlag" :alt="element.original_language">
+            </li>
+            <li>
+              <i v-for="n in 5" :key="n" :class="n <= voteToStars ? 'fas fa-star' : 'far fa-star' "></i>
+            </li>
+          </ul>
+          <h5 v-if="element.overview">Trama</h5>
+          <p> {{ element.overview }} </p>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -53,6 +63,12 @@ export default {
       } else {
         return "https://upload.wikimedia.org/wikipedia/commons/2/2f/Missing_flag.png"
       }
+    },
+    title() {
+      return this.i === 'movies' ? this.element.title : this.element.name
+    },
+    originalTitle() {
+      return this.i === 'movies' ? this.element.original_title : this.element.original_name
     }
   }
 }

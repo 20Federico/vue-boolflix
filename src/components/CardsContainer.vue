@@ -1,9 +1,18 @@
 <template>
   <div>
-    <div class="container" v-for="(category, i) in categories" :key="i">
+
+    <div v-if="loading" class="cards_container d-flex justify-content-center align-items-center">
+      <div class="loading spinner-border text-danger fs-4" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+
+    <p v-if="noResults" class="no_results_msg py-5 m-auto fs-5">Nessun risultato per la tua ricerca di <strong>{{keyWord}}</strong></p>
+
+    <div v-show="!loading" class="container" v-for="(category, i) in categories" :key="i">
       <h3 class="py-3 fs-1" v-if="category.length > 0">{{i.toUpperCase()}}</h3>
       <div class="d-flex flex-wrap mb-5">
-        
+
         <Card v-for="element in category" :key="element.id" :element="element" :i="i" ></Card>
 
       </div>
@@ -29,10 +38,15 @@ export default {
         movies: [],
         series: []
       },
+      loading: false,
+      noResults: false
     }
   },
   methods: {
     apiCall(categoryToSearch, query) {
+      this.noResults = false
+      this.loading = true
+
       axios.get(this.apiUrl + "/search/" + categoryToSearch, {
       params: {
         api_key: this.apiKey,
@@ -45,6 +59,10 @@ export default {
       } else if (categoryToSearch === 'tv') {
         this.categories.series = resp.data.results
       }
+      if (resp.data.results.length === 0) {
+          this.noResults = true
+      }
+      setTimeout(() => this.loading = false, 500)
     });
     },
 
